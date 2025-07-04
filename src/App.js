@@ -7,6 +7,8 @@ import Error from "./components/Error";
 import StartScreen from "./components/StartScreen";
 import Questions from "./components/Questions";
 import NextButton from "./components/NextButton";
+import Progress from "./components/Progress";
+
 const initialstate = {
   questions: [],
   //we can be loading,error,ready,active,finished
@@ -52,8 +54,15 @@ export default function App() {
   //Total number of questions
   const totalqsn = state.questions.length;
 
+  //calculating total points in the quiz json
+  const totalPoints = state.questions.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.points,
+    0
+  );
+
   //destructuring state
   const { questions, status, index, answer, points } = state;
+
   useEffect(function () {
     async function getQsn() {
       try {
@@ -83,6 +92,14 @@ export default function App() {
         )}
         {status === "active" && (
           <>
+            <Progress
+              index={index}
+              totalPoints={totalPoints}
+              numQsn={totalqsn}
+              points={points}
+              answer={answer}
+            />
+
             <Questions
               currentQsn={questions[index]}
               dispatch={dispatch}
