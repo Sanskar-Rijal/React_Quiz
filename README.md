@@ -19,8 +19,8 @@ This is a simple quiz application built with React. It demonstrates the use of R
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
-   cd your-repo-name
+   git clone https://github.com/Sanskar-Rijal/React_Quiz
+   cd React_Quiz
    ```
 2. Install dependencies:
    ```bash
