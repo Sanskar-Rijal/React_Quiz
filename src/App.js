@@ -12,6 +12,8 @@ const initialstate = {
   //we can be loading,error,ready,active,finished
   status: "loading",
   index: 0, //index is for current question
+  answer: null, // state for checking answer
+  points: 0, //state for points
 };
 
 function reducer(state, action) {
@@ -22,6 +24,18 @@ function reducer(state, action) {
       return { ...state, status: "error" };
     case "active":
       return { ...state, status: "active" };
+    case "newAnswer":
+      //finding out which is the current question
+      const question = state.questions[state.index];
+
+      return {
+        ...state,
+        answer: action.payload,
+        points:
+          question.correctOption === action.payload
+            ? state.points + question.points
+            : state.points,
+      };
     default:
       throw new Error(`Action Unknown`);
   }
@@ -35,7 +49,7 @@ export default function App() {
   const totalqsn = state.questions.length;
 
   //destructuring state
-  const { questions, status, index } = state;
+  const { questions, status, index, answer, points } = state;
   useEffect(function () {
     async function getQsn() {
       try {
@@ -63,7 +77,13 @@ export default function App() {
         {status === "ready" && (
           <StartScreen totalqsn={totalqsn} dispatch={dispatch} />
         )}
-        {status === "active" && <Questions currentQsn={questions[index]} />}
+        {status === "active" && (
+          <Questions
+            currentQsn={questions[index]}
+            dispatch={dispatch}
+            answer={answer}
+          />
+        )}
       </Main>
     </div>
   );
