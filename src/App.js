@@ -8,6 +8,7 @@ import StartScreen from "./components/StartScreen";
 import Questions from "./components/Questions";
 import NextButton from "./components/NextButton";
 import Progress from "./components/Progress";
+import Finish from "./components/Finish";
 
 const initialstate = {
   questions: [],
@@ -16,6 +17,7 @@ const initialstate = {
   index: 0, //index is for current question
   answer: null, // state for checking answer
   points: 0, //state for points
+  highScore: 0, //state for high score
 };
 
 function reducer(state, action) {
@@ -42,6 +44,15 @@ function reducer(state, action) {
     case "nextQsn":
       return { ...state, index: state.index + 1, answer: null };
 
+    //qsn is finished
+    case "finish":
+      return {
+        ...state,
+        status: "finished",
+        highScore:
+          state.points > state.highScore ? state.points : state.highScore,
+      };
+
     default:
       throw new Error(`Action Unknown`);
   }
@@ -61,7 +72,7 @@ export default function App() {
   );
 
   //destructuring state
-  const { questions, status, index, answer, points } = state;
+  const { questions, status, index, answer, points, highScore } = state;
 
   useEffect(function () {
     async function getQsn() {
@@ -86,7 +97,9 @@ export default function App() {
       <Header />
       <Main>
         {status === "loading" && <Loader />}
+
         {status === "error" && <Error />}
+
         {status === "ready" && (
           <StartScreen totalqsn={totalqsn} dispatch={dispatch} />
         )}
@@ -105,8 +118,21 @@ export default function App() {
               dispatch={dispatch}
               answer={answer}
             />
-            <NextButton dispatch={dispatch} answer={answer} />
+            <NextButton
+              dispatch={dispatch}
+              answer={answer}
+              index={index}
+              numQuestion={totalqsn}
+            />
           </>
+        )}
+
+        {status === "finished" && (
+          <Finish
+            points={points}
+            maxPossiblePoints={totalPoints}
+            highScore={highScore}
+          />
         )}
       </Main>
     </div>
