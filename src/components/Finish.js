@@ -1,4 +1,9 @@
-export default function Finish({ points, maxPossiblePoints, highScore }) {
+export default function Finish({
+  points,
+  maxPossiblePoints,
+  highScore,
+  dispatch,
+}) {
   const percentage = (points / maxPossiblePoints) * 100;
   return (
     <>
@@ -7,6 +12,13 @@ export default function Finish({ points, maxPossiblePoints, highScore }) {
         {Math.ceil(percentage)}%
       </p>
       <p className="highscore">(HighScore: {highScore} points)</p>
+
+      <button
+        className="btn btn-ui"
+        onClick={() => dispatch({ type: "restart" })}
+      >
+        Restart Quiz
+      </button>
     </>
   );
 }
