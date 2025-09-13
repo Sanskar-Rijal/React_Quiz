@@ -9,6 +9,19 @@ This is a simple quiz application built with React. It demonstrates the use of R
 - Answer validation and feedback
 - Responsive design
 
+## ScreenShots
+<div align="center">
+  <img src="https://i.imgur.com/5rdfn1I.gif" width="500" style="margin: 10px;" />
+  <img src="https://i.imgur.com/AJrW3Ot.gif" width="500" style="margin: 10px;" />
+  <br>
+  <img src="https://i.imgur.com/M4pAl5H.gif" width="500" style="margin: 10px;" />
+  <img src="https://i.imgur.com/x9jyNDP.gif" width="500" style="margin: 10px;" />
+  <br>
+  <img src="https://i.imgur.com/lp255e4.gif" width="500" style="margin: 10px;" />
+  <img src="https://i.imgur.com/2S9KP0z.gif" width="500" style="margin: 10px;" />
+</div>
+
+
 ## Getting Started
 
 ### Prerequisites
